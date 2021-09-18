@@ -43,4 +43,38 @@ class EspecialidadesModelo extends PadreModelo
 
         return $estado;
     }
+
+    public function insertarEspecialidad() {
+        $especialidad = $this->getEspecialidad();
+        try {
+            $stmt = $this->bd->prepare("INSERT INTO `especialidades` (especialidad) VALUES (?)");
+            if($stmt) {
+                $stmt->bind_param('s', $especialidad);
+                $stmt->execute();
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+                return $estado;
+            }
+
+            if ($stmt->affected_rows > 0) {
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => ['id' => $stmt->insert_id]
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+
+        $stmt->close();
+        return $estado;
+    }
 }
