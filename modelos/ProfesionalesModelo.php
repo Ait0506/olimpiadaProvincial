@@ -34,7 +34,7 @@ class ProfesionalesModelo extends PadreModelo
         $password = $this->getPassword();
 
         try {
-            $sql = "SELECT * FROM `profesionales` WHERE dni = $dni";
+            $sql = "SELECT * FROM `profesionales` WHERE dni = '$dni'";
             $res = $this->bd->query($sql);
 
             if ($res) {
