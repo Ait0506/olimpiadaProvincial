@@ -15,12 +15,10 @@ $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_S
 $accion = 'obtenerEspecialidades';
 
 
-/**
+/*git 
  * CODIGO ERRORES:
+ * satisfactorio: Exito.
  * error: Hubo un error.
- * errorInputs: Datos ingresados no validos.
- * errorPassword: Password incorrecta.
- * errorUser: Usuario inexistente.
  */
 
 if ($accion == 'obtenerEspecialidades') {
