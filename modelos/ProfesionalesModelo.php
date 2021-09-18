@@ -34,14 +34,15 @@ class ProfesionalesModelo extends PadreModelo
         $password = $this->getPassword();
 
         try {
-            $sql = "SELECT * FROM `profesionales` WHERE dni = '$dni'";
+            $sql = "SELECT * FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id WHERE dni = '$dni'";
             $res = $this->bd->query($sql);
 
             if ($res) {
                 if ($prof = $res->fetch_assoc()) {
                     if (password_verify($password, $prof['password'])) {
                         $estado = array(
-                            'estado' => 'satisfactorio'
+                            'estado' => 'satisfactorio',
+                            'datos' => $prof,
                         );
                     } else {
                         $estado = array(

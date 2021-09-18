@@ -4,13 +4,20 @@ include_once '../configuracion/bd.php';
 include_once '../modelos/PadreModelo.php';
 include_once '../modelos/ProfesionalesModelo.php';
 
-// $dni = isset($_POST['dni']) != false ? filter_var($_POST['dni'], FILTER_SANITIZE_STRING) : false;
-// $password = isset($_POST['password']) != false ? filter_var($_POST['password'], FILTER_SANITIZE_STRING) : false;
-// $accion = isset($_POST['accion']) != false ? filter_var($_POST['accion'], FILTER_SANITIZE_STRING) : false;
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
-$dni = '25123123';
-$password = 'password';
-$accion = 'iniciarSesion';
+$data = json_decode(file_get_contents('php://input'), true);
+
+$dni = isset($data['dni']) != false ? filter_var($data['dni'], FILTER_SANITIZE_STRING) : false;
+$password = isset($data['password']) != false ? filter_var($data['password'], FILTER_SANITIZE_STRING) : false;
+$accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
+
+// $dni = '11';
+// $password = 'password';
+// $accion = 'iniciarSesion';
+
 
 /**
  * CODIGO ERRORES:
