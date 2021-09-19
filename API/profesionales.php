@@ -19,13 +19,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 // $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
 
-$nombre = 'NOMBRE';
-$apellido = 'APELLIDO';
-$idEspecialidad = 1;
-$fechaNacimiento = '2020-01-01';
-$dni = '2121a';
-$password = 'hola';
-$accion = 'insertarProfesional';
+$id = 10;
+$accion = 'eliminarProfesional';
 
 /*git 
  * CODIGO ERRORES:
@@ -77,25 +72,25 @@ if ($accion == 'insertarProfesional') {
     }
 }
 
-// if ($accion == 'eliminarEspecialidad') {
-//     if ($id == false) {
-//         $respuesta = array(
-//             'estado' => 'errorInputs'
-//         );
+if ($accion == 'eliminarProfesional') {
+    if ($id == false) {
+        $respuesta = array(
+            'estado' => 'errorInputs'
+        );
 
-//         die(json_encode($respuesta));
-//     } else {
-//         $especialidad = new EspecialidadesModelo();
-//         $especialidad->setId($id);
+        die(json_encode($respuesta));
+    } else {
+        $profesional = new ProfesionalesModelo();
+        $profesional->setId($id);
 
-//         try {
-//             $respuesta = $especialidad->eliminarEspecialidad();
-//         } catch (Exception $e) {
-//             $respuesta = array(
-//                 'estado' => 'error'
-//             );
-//         }
+        try {
+            $respuesta = $profesional->eliminarProfesional();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'estado' => 'error'
+            );
+        }
 
-//         die(json_encode($respuesta));
-//     }
-// }
+        die(json_encode($respuesta));
+    }
+}
