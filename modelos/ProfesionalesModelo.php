@@ -1,12 +1,56 @@
 <?php
 class ProfesionalesModelo extends PadreModelo
 {
+    private $nombre;
+    private $apellido;
+    private $idEspecialidad;
+    private $fechaNacimiento;
     private $dni;
     private $password;
 
     function __construct()
     {
         parent::__construct();
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre($nombre)
+    {
+        $this->nombre = $this->bd->real_escape_string($nombre);
+    }
+
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    public function setApellido($apellido)
+    {
+        $this->apellido = $this->bd->real_escape_string($apellido);
+    }
+
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento;
+    }
+
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $this->bd->real_escape_string($fechaNacimiento);
+    }
+
+    public function getIdEspecialidad()
+    {
+        return $this->idEspecialidad;
+    }
+
+    public function setIdEspecialidad($idEspecialidad)
+    {
+        $this->idEspecialidad = $this->bd->real_escape_string($idEspecialidad);
     }
 
     public function getDni()
@@ -54,6 +98,38 @@ class ProfesionalesModelo extends PadreModelo
                         'estado' => 'errorUsuario'
                     );
                 }
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+
+        return $estado;
+    }
+
+    public function insertarProfesional()
+    {
+        $estado = '';
+        $nombre = $this->getNombre();
+        $apellido = $this->getApellido();
+        $idEspecialidad = $this->getidEspecialidad();
+        $dni = $this->getDni();
+        $fechaNacimiento = $this->getFechaNacimiento();
+        $password = $this->getPassword();
+        
+        try {
+            $sql = "INSERT INTO `profesionales` (`nombre`, `apellido`, `idEspecialidad`, `dni`, `fechaNacimiento`, `password`) VALUES ('$nombre', '$apellido', $idEspecialidad, '$dni', '$fechaNacimiento', '$password')";
+            $res = $this->bd->query($sql);
+
+            if ($res) {
+                $estado = array(
+                    'estado' => 'satisfactorio'
+                );
             } else {
                 $estado = array(
                     'estado' => 'error'

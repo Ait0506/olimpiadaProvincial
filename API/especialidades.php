@@ -14,9 +14,6 @@ $id = isset($data['id']) != false ? filter_var($data['id'], FILTER_SANITIZE_NUMB
 $nombreEspecialidad = isset($data['especialidad']) != false ? filter_var($data['especialidad'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$id = 570;
-$accion = 'eliminarEspecialidad';
-
 /*git 
  * CODIGO ERRORES:
  * satisfactorio: Exito.
