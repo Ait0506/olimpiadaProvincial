@@ -121,14 +121,23 @@ class ProfesionalesModelo extends PadreModelo
         $dni = $this->getDni();
         $fechaNacimiento = $this->getFechaNacimiento();
         $password = $this->getPassword();
-        
-        try {
-            $sql = "INSERT INTO `profesionales` (`nombre`, `apellido`, `idEspecialidad`, `dni`, `fechaNacimiento`, `password`) VALUES ('$nombre', '$apellido', $idEspecialidad, '$dni', '$fechaNacimiento', '$password')";
-            $res = $this->bd->query($sql);
 
-            if ($res) {
+        try {
+            $stmt = $this->bd->prepare("INSERT INTO `profesionales` (`nombre`, `apellido`, `idEspecialidad`, `dni`, `fechaNacimiento`, `password`) VALUES (?, ?, ?, ?, ?, ?)");
+            if($stmt) {
+                $stmt->bind_param('ssisss', $nombre, $apellido, $idEspecialidad, $dni, $fechaNacimiento, $password);
+                $stmt->execute();
+            } else {
                 $estado = array(
-                    'estado' => 'satisfactorio'
+                    'estado' => 'error'
+                );
+                return $estado;
+            }
+
+            if ($stmt->affected_rows > 0) {
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => ['id' => $stmt->insert_id]
                 );
             } else {
                 $estado = array(
@@ -141,6 +150,7 @@ class ProfesionalesModelo extends PadreModelo
             );
         }
 
+        $stmt->close();
         return $estado;
     }
 }
