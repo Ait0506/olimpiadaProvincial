@@ -10,11 +10,12 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
+$id = isset($data['id']) != false ? filter_var($data['id'], FILTER_SANITIZE_NUMBER_INT) : false;
 $nombreEspecialidad = isset($data['especialidad']) != false ? filter_var($data['especialidad'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$accion = 'insertarEspecialidad';
-
+$id = 570;
+$accion = 'eliminarEspecialidad';
 
 /*git 
  * CODIGO ERRORES:
@@ -49,6 +50,29 @@ if ($accion == 'insertarEspecialidad') {
 
         try {
             $respuesta = $especialidad->insertarEspecialidad();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'estado' => 'error'
+            );
+        }
+
+        die(json_encode($respuesta));
+    }
+}
+
+if ($accion == 'eliminarEspecialidad') {
+    if ($id == false) {
+        $respuesta = array(
+            'estado' => 'errorInputs'
+        );
+
+        die(json_encode($respuesta));
+    } else {
+        $especialidad = new EspecialidadesModelo();
+        $especialidad->setId($id);
+
+        try {
+            $respuesta = $especialidad->eliminarEspecialidad();
         } catch (Exception $e) {
             $respuesta = array(
                 'estado' => 'error'

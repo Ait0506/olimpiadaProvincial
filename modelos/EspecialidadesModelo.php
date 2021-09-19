@@ -77,4 +77,31 @@ class EspecialidadesModelo extends PadreModelo
         $stmt->close();
         return $estado;
     }
+
+    public function eliminarEspecialidad()
+    {
+        $estado = '';
+        $id = $this->getId();
+
+        try {
+            $sql = "DELETE FROM `especialidades` where id = $id";
+            $res = $this->bd->query($sql);
+
+            if ($res) {
+                $estado = array(
+                    'estado' => 'satisfactorio'
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+
+        return $estado;
+    }
 }
