@@ -112,6 +112,33 @@ class ProfesionalesModelo extends PadreModelo
         return $estado;
     }
 
+    public function obtenerProfesionales() {
+        try {
+            $sql = "SELECT * FROM `profesionales`";
+            $res = $this->bd->query($sql);
+            $profesionales = array();
+
+            if ($res) {
+                while ($prof = $res->fetch_assoc()) {
+                    array_push($profesionales, $prof);
+                }
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => $profesionales
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+        return $estado;
+    }
+
     public function insertarProfesional()
     {
         $estado = '';

@@ -19,8 +19,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 // $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
 
-$id = 10;
-$accion = 'eliminarProfesional';
+$accion = 'obtenerProfesionales';
 
 /*git 
  * CODIGO ERRORES:
@@ -28,19 +27,19 @@ $accion = 'eliminarProfesional';
  * error: Hubo un error.
  */
 
-// if ($accion == 'obtenerEspecialidades') {
-//     $especialidad = new EspecialidadesModelo();
+if ($accion == 'obtenerProfesionales') {
+    $profesional = new ProfesionalesModelo();
 
-//     try {
-//         $respuesta = $especialidad->obtenerEspecialidades();
-//     } catch (Exception $e) {
-//         $respuesta = array(
-//             'estado' => 'error'
-//         );
-//     }
+    try {
+        $respuesta = $profesional->obtenerProfesionales();
+    } catch (Exception $e) {
+        $respuesta = array(
+            'estado' => 'error'
+        );
+    }
 
-//     die(json_encode($respuesta));
-// }
+    die(json_encode($respuesta));
+}
 
 if ($accion == 'insertarProfesional') {
     if ($nombre == false || $apellido == false || $idEspecialidad == false || $fechaNacimiento == false || $dni == false || $password == false) {
