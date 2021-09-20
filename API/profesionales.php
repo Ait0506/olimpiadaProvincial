@@ -10,6 +10,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
+$id = isset($data['id']) != false ? filter_var($data['id'], FILTER_SANITIZE_NUMBER_INT) : false;
 $nombre = isset($data['nombre']) != false ? filter_var($data['nombre'], FILTER_SANITIZE_STRING) : false;
 $apellido = isset($data['apellido']) != false ? filter_var($data['apellido'], FILTER_SANITIZE_STRING) : false;
 $idEspecialidad = isset($data['idEspecialidad']) != false ? filter_var($data['idEspecialidad'], FILTER_SANITIZE_NUMBER_INT) : false;
