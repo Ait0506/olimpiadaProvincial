@@ -18,12 +18,6 @@ $fechaNacimiento = isset($data['fechaNacimiento']) != false ? filter_var($data['
 $dni = isset($data['dni']) != false ? filter_var($data['dni'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$accion = 'obtenerPacientes';
-$nombre = 'NOMBRE';
-$apellido = 'APELLIDO';
-$genero = 'GENERO';
-$fechaNacimiento = '2020-01-01';
-$dni = '1111';
 
 /*git 
  * CODIGO ERRORES:
@@ -72,25 +66,25 @@ if ($accion == 'insertarPaciente') {
     }
 }
 
-// if ($accion == 'eliminarProfesional') {
-//     if ($id == false) {
-//         $respuesta = array(
-//             'estado' => 'errorInputs'
-//         );
+if ($accion == 'eliminarPaciente') {
+    if ($id == false) {
+        $respuesta = array(
+            'estado' => 'errorInputs'
+        );
 
-//         die(json_encode($respuesta));
-//     } else {
-//         $profesional = new ProfesionalesModelo();
-//         $profesional->setId($id);
+        die(json_encode($respuesta));
+    } else {
+        $paciente = new PacientesModelo();
+        $paciente->setId($id);
 
-//         try {
-//             $respuesta = $profesional->eliminarProfesional();
-//         } catch (Exception $e) {
-//             $respuesta = array(
-//                 'estado' => 'error'
-//             );
-//         }
+        try {
+            $respuesta = $paciente->eliminarPaciente();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'estado' => 'error'
+            );
+        }
 
-//         die(json_encode($respuesta));
-//     }
-// }
+        die(json_encode($respuesta));
+    }
+}
