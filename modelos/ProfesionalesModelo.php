@@ -114,7 +114,7 @@ class ProfesionalesModelo extends PadreModelo
 
     public function obtenerProfesionales() {
         try {
-            $sql = "SELECT * FROM `profesionales`";
+            $sql = "SELECT * FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
             $res = $this->bd->query($sql);
             $profesionales = array();
 
