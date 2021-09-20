@@ -18,7 +18,7 @@ $fechaNacimiento = isset($data['fechaNacimiento']) != false ? filter_var($data['
 $dni = isset($data['dni']) != false ? filter_var($data['dni'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$accion = 'insertarPaciente';
+$accion = 'obtenerPacientes';
 $nombre = 'NOMBRE';
 $apellido = 'APELLIDO';
 $genero = 'GENERO';
@@ -31,19 +31,19 @@ $dni = '1111';
  * error: Hubo un error.
  */
 
-// if ($accion == 'obtenerProfesionales') {
-//     $profesional = new ProfesionalesModelo();
+if ($accion == 'obtenerPacientes') {
+    $paciente = new PacientesModelo();
 
-//     try {
-//         $respuesta = $profesional->obtenerProfesionales();
-//     } catch (Exception $e) {
-//         $respuesta = array(
-//             'estado' => 'error'
-//         );
-//     }
+    try {
+        $respuesta = $paciente->obtenerPacientes();
+    } catch (Exception $e) {
+        $respuesta = array(
+            'estado' => 'error'
+        );
+    }
 
-//     die(json_encode($respuesta));
-// }
+    die(json_encode($respuesta));
+}
 
 if ($accion == 'insertarPaciente') {
     if ($nombre == false || $apellido == false || $fechaNacimiento == false || $dni == false || $genero == false) {

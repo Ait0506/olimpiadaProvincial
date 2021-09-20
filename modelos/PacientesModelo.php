@@ -62,32 +62,32 @@ class PacientesModelo extends PadreModelo
         $this->genero = $this->bd->real_escape_string($genero);
     }
 
-    // public function obtenerProfesionales() {
-    //     try {
-    //         $sql = "SELECT *, profesionales.id as 'id' FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
-    //         $res = $this->bd->query($sql);
-    //         $profesionales = array();
+    public function obtenerPacientes() {
+        try {
+            $sql = "SELECT *  FROM `pacientes`";
+            $res = $this->bd->query($sql);
+            $pacientes = array();
 
-    //         if ($res) {
-    //             while ($prof = $res->fetch_assoc()) {
-    //                 array_push($profesionales, $prof);
-    //             }
-    //             $estado = array(
-    //                 'estado' => 'satisfactorio',
-    //                 'datos' => $profesionales
-    //             );
-    //         } else {
-    //             $estado = array(
-    //                 'estado' => 'error'
-    //             );
-    //         }
-    //     } catch (Exception $e) {
-    //         $estado = array(
-    //             'estado' => 'error'
-    //         );
-    //     }
-    //     return $estado;
-    // }
+            if ($res) {
+                while ($pac = $res->fetch_assoc()) {
+                    array_push($pacientes, $pac);
+                }
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => $pacientes
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+        return $estado;
+    }
 
     public function insertarPaciente()
     {
