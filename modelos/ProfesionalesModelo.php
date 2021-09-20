@@ -78,7 +78,7 @@ class ProfesionalesModelo extends PadreModelo
         $password = $this->getPassword();
 
         try {
-            $sql = "SELECT * FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id WHERE dni = '$dni'";
+            $sql = "SELECT *, profesionales.id as 'id' FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id WHERE dni = '$dni'";
             $res = $this->bd->query($sql);
 
             if ($res) {
@@ -114,7 +114,7 @@ class ProfesionalesModelo extends PadreModelo
 
     public function obtenerProfesionales() {
         try {
-            $sql = "SELECT * FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
+            $sql = "SELECT *, profesionales.id as 'id' FROM `profesionales` INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
             $res = $this->bd->query($sql);
             $profesionales = array();
 
