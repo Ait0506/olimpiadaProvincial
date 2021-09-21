@@ -13,11 +13,10 @@ $data = json_decode(file_get_contents('php://input'), true);
 $id = isset($data['id']) != false ? filter_var($data['id'], FILTER_SANITIZE_NUMBER_INT) : false;
 $nombre = isset($data['nombre']) != false ? filter_var($data['nombre'], FILTER_SANITIZE_STRING) : false;
 $apellido = isset($data['apellido']) != false ? filter_var($data['apellido'], FILTER_SANITIZE_STRING) : false;
-$genero = isset($data['genero']) != false ? filter_var($data['genero'], FILTER_SANITIZE_NUMBER_INT) : false;
+$genero = isset($data['genero']) != false ? filter_var($data['genero'], FILTER_SANITIZE_STRING) : false;
 $fechaNacimiento = isset($data['fechaNacimiento']) != false ? filter_var($data['fechaNacimiento'], FILTER_SANITIZE_STRING) : false;
 $dni = isset($data['dni']) != false ? filter_var($data['dni'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
-
 
 /*git 
  * CODIGO ERRORES:

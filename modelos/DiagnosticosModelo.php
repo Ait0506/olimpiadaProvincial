@@ -1,0 +1,135 @@
+<?php
+class DiagnosticosModelo extends PadreModelo
+{
+    private $idPaciente;
+    private $idProfesional;
+    private $descripcion;
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getIdPaciente()
+    {
+        return $this->idPaciente;
+    }
+
+    public function setIdPaciente($idPaciente)
+    {
+        $this->idPaciente = $this->bd->real_escape_string($idPaciente);
+    }
+
+    public function getIdProfesional()
+    {
+        return $this->idProfesional;
+    }
+
+    public function setIdProfesional($idProfesional)
+    {
+        $this->idProfesional = $this->bd->real_escape_string($idProfesional);
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $this->bd->real_escape_string($descripcion);
+    }
+
+    // public function obtenerPacientes() {
+    //     try {
+    //         $sql = "SELECT *  FROM `pacientes`";
+    //         $res = $this->bd->query($sql);
+    //         $pacientes = array();
+
+    //         if ($res) {
+    //             while ($pac = $res->fetch_assoc()) {
+    //                 array_push($pacientes, $pac);
+    //             }
+    //             $estado = array(
+    //                 'estado' => 'satisfactorio',
+    //                 'datos' => $pacientes
+    //             );
+    //         } else {
+    //             $estado = array(
+    //                 'estado' => 'error'
+    //             );
+    //         }
+    //     } catch (Exception $e) {
+    //         $estado = array(
+    //             'estado' => 'error'
+    //         );
+    //     }
+    //     return $estado;
+    // }
+
+    public function insertarDiagnostico()
+    {
+        $estado = '';
+        $idPaciente = $this->getIdPaciente();
+        $idProfesional = $this->getIdProfesional();
+        $descripcion = $this->getDescripcion();
+
+        try {
+            $stmt = $this->bd->prepare("INSERT INTO `diagnosticos` (`idPaciente`, `idProfesional`, `descripcion`) VALUES (?, ?, ?)");
+            if($stmt) {
+                $stmt->bind_param('iis', $idPaciente, $idProfesional, $descripcion);
+                $stmt->execute();
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+                return $estado;
+            }
+
+            if ($stmt->affected_rows > 0) {
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => ['id' => $stmt->insert_id]
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+
+        $stmt->close();
+        return $estado;
+    }
+
+    // public function eliminarPaciente()
+    // {
+    //     $estado = '';
+    //     $id = $this->getId();
+
+    //     try {
+    //         $sql = "DELETE FROM `pacientes` where id = $id";
+    //         $res = $this->bd->query($sql);
+
+    //         if ($res) {
+    //             $estado = array(
+    //                 'estado' => 'satisfactorio'
+    //             );
+    //         } else {
+    //             $estado = array(
+    //                 'estado' => 'error'
+    //             );
+    //         }
+    //     } catch (Exception $e) {
+    //         $estado = array(
+    //             'estado' => 'error'
+    //         );
+    //     }
+
+    //     return $estado;
+    // }
+}
