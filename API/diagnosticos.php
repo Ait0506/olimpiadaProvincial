@@ -16,10 +16,11 @@ $idProfesional = isset($data['idProfesional']) != false ? filter_var($data['idPr
 $descripcion = isset($data['descripcion']) != false ? filter_var($data['descripcion'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
+$id = 9;
 $idPaciente = 1;
 $idProfesional = 1;
 $descripcion = 'diagnostico';
-$accion = 'insertarDiagnostico';
+$accion = 'eliminarDiagnostico';
 
 /*git 
  * CODIGO ERRORES:
@@ -66,25 +67,25 @@ if ($accion == 'insertarDiagnostico') {
     }
 }
 
-// if ($accion == 'eliminarPaciente') {
-//     if ($id == false) {
-//         $respuesta = array(
-//             'estado' => 'errorInputs'
-//         );
+if ($accion == 'eliminarDiagnostico') {
+    if ($id == false) {
+        $respuesta = array(
+            'estado' => 'errorInputs'
+        );
 
-//         die(json_encode($respuesta));
-//     } else {
-//         $paciente = new PacientesModelo();
-//         $paciente->setId($id);
+        die(json_encode($respuesta));
+    } else {
+        $diagnostico = new DiagnosticosModelo();
+        $diagnostico->setId($id);
 
-//         try {
-//             $respuesta = $paciente->eliminarPaciente();
-//         } catch (Exception $e) {
-//             $respuesta = array(
-//                 'estado' => 'error'
-//             );
-//         }
+        try {
+            $respuesta = $diagnostico->eliminarDiagnostico();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'estado' => 'error'
+            );
+        }
 
-//         die(json_encode($respuesta));
-//     }
-// }
+        die(json_encode($respuesta));
+    }
+}
