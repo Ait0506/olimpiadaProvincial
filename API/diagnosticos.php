@@ -16,31 +16,25 @@ $idProfesional = isset($data['idProfesional']) != false ? filter_var($data['idPr
 $descripcion = isset($data['descripcion']) != false ? filter_var($data['descripcion'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$id = 9;
-$idPaciente = 1;
-$idProfesional = 1;
-$descripcion = 'diagnostico';
-$accion = 'eliminarDiagnostico';
-
 /*git 
  * CODIGO ERRORES:
  * satisfactorio: Exito.
  * error: Hubo un error.
  */
 
-// if ($accion == 'obtenerPacientes') {
-//     $paciente = new PacientesModelo();
+if ($accion == 'obtenerDiagnosticos') {
+    $diagnostico = new DiagnosticosModelo();
 
-//     try {
-//         $respuesta = $paciente->obtenerPacientes();
-//     } catch (Exception $e) {
-//         $respuesta = array(
-//             'estado' => 'error'
-//         );
-//     }
+    try {
+        $respuesta = $diagnostico->obtenerDiagnosticos();
+    } catch (Exception $e) {
+        $respuesta = array(
+            'estado' => 'error'
+        );
+    }
 
-//     die(json_encode($respuesta));
-// }
+    die(json_encode($respuesta));
+}
 
 if ($accion == 'insertarDiagnostico') {
     if ($idPaciente == false || $idProfesional == false || $descripcion == false) {

@@ -40,32 +40,32 @@ class DiagnosticosModelo extends PadreModelo
         $this->descripcion = $this->bd->real_escape_string($descripcion);
     }
 
-    // public function obtenerPacientes() {
-    //     try {
-    //         $sql = "SELECT *  FROM `pacientes`";
-    //         $res = $this->bd->query($sql);
-    //         $pacientes = array();
+    public function obtenerDiagnosticos() {
+        try {
+            $sql = "SELECT diagnosticos.id, diagnosticos.descripcion as 'diagnostico', profesionales.nombre as 'nombreProfesional', profesionales.apellido as 'apellidoProfesional', profesionales.id as 'idProfesional', especialidades.especialidad as 'especialidad', pacientes.nombre as 'nombrePaciente', pacientes.apellido as 'apellidoPaciente', pacientes.dni as 'dniPaciente' FROM `diagnosticos` INNER JOIN `profesionales` ON diagnosticos.idProfesional = profesionales.id INNER JOIN `pacientes` ON diagnosticos.idPaciente = pacientes.id INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
+            $res = $this->bd->query($sql);
+            $diagnosticos = array();
 
-    //         if ($res) {
-    //             while ($pac = $res->fetch_assoc()) {
-    //                 array_push($pacientes, $pac);
-    //             }
-    //             $estado = array(
-    //                 'estado' => 'satisfactorio',
-    //                 'datos' => $pacientes
-    //             );
-    //         } else {
-    //             $estado = array(
-    //                 'estado' => 'error'
-    //             );
-    //         }
-    //     } catch (Exception $e) {
-    //         $estado = array(
-    //             'estado' => 'error'
-    //         );
-    //     }
-    //     return $estado;
-    // }
+            if ($res) {
+                while ($diag = $res->fetch_assoc()) {
+                    array_push($diagnosticos, $diag);
+                }
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => $diagnosticos
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+        return $estado;
+    }
 
     public function insertarDiagnostico()
     {
