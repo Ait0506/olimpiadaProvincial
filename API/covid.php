@@ -17,11 +17,12 @@ $estadoCovid = isset($data['estadoCovid']) != false ? filter_var($data['estadoCo
 $descripcion = isset($data['descripcion']) != false ? filter_var($data['descripcion'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-$idPaciente = 1;
-$internacion = 0;
-$estadoCovid = 1;
-$descripcion = 'Bien';
-$accion = 'insertarCovid';
+// $idPaciente = 1;
+// $internacion = 0;
+// $estadoCovid = 1;
+// $descripcion = 'Bien';
+// $accion = 'eliminarCovid';
+// $id = 16;
 
 /*git 
  * CODIGO ERRORES:
@@ -69,25 +70,25 @@ if ($accion == 'insertarCovid') {
     }
 }
 
-// if ($accion == 'eliminarDiagnostico') {
-//     if ($id == false) {
-//         $respuesta = array(
-//             'estado' => 'errorInputs'
-//         );
+if ($accion == 'eliminarCovid') {
+    if ($id == false) {
+        $respuesta = array(
+            'estado' => 'errorInputs'
+        );
 
-//         die(json_encode($respuesta));
-//     } else {
-//         $diagnostico = new DiagnosticosModelo();
-//         $diagnostico->setId($id);
+        die(json_encode($respuesta));
+    } else {
+        $covid = new covidModelo();
+        $covid->setId($id);
 
-//         try {
-//             $respuesta = $diagnostico->eliminarDiagnostico();
-//         } catch (Exception $e) {
-//             $respuesta = array(
-//                 'estado' => 'error'
-//             );
-//         }
+        try {
+            $respuesta = $covid->eliminarCovid();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'estado' => 'error'
+            );
+        }
 
-//         die(json_encode($respuesta));
-//     }
-// }
+        die(json_encode($respuesta));
+    }
+}

@@ -118,30 +118,30 @@ class CovidModelo extends PadreModelo
         return $estado;
     }
 
-    // public function eliminarDiagnostico()
-    // {
-    //     $estado = '';
-    //     $id = $this->getId();
+    public function eliminarCovid()
+    {
+        $estado = '';
+        $id = $this->getId();
 
-    //     try {
-    //         $sql = "DELETE FROM `diagnosticos` where id = $id";
-    //         $res = $this->bd->query($sql);
+        try {
+            $sql = "DELETE FROM `seguimientocovid` where id = $id";
+            $res = $this->bd->query($sql);
 
-    //         if ($res) {
-    //             $estado = array(
-    //                 'estado' => 'satisfactorio'
-    //             );
-    //         } else {
-    //             $estado = array(
-    //                 'estado' => 'error'
-    //             );
-    //         }
-    //     } catch (Exception $e) {
-    //         $estado = array(
-    //             'estado' => 'error'
-    //         );
-    //     }
+            if ($res) {
+                $estado = array(
+                    'estado' => 'satisfactorio'
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
 
-    //     return $estado;
-    // }
+        return $estado;
+    }
 }
