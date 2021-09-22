@@ -42,7 +42,7 @@ class DiagnosticosModelo extends PadreModelo
 
     public function obtenerDiagnosticos() {
         try {
-            $sql = "SELECT diagnosticos.id, diagnosticos.descripcion as 'diagnostico', profesionales.nombre as 'nombreProfesional', profesionales.apellido as 'apellidoProfesional', profesionales.id as 'idProfesional', especialidades.especialidad as 'especialidad', pacientes.nombre as 'nombrePaciente', pacientes.apellido as 'apellidoPaciente', pacientes.dni as 'dniPaciente' FROM `diagnosticos` INNER JOIN `profesionales` ON diagnosticos.idProfesional = profesionales.id INNER JOIN `pacientes` ON diagnosticos.idPaciente = pacientes.id INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
+            $sql = "SELECT diagnosticos.id, diagnosticos.descripcion as 'descripcion', profesionales.nombre as 'nombreProfesional', profesionales.apellido as 'apellidoProfesional', profesionales.id as 'idProfesional', especialidades.especialidad as 'especialidad', pacientes.id as 'idPaciente', pacientes.nombre as 'nombrePaciente', pacientes.apellido as 'apellidoPaciente', pacientes.genero as 'generoPaciente', pacientes.dni as 'dniPaciente' FROM `diagnosticos` INNER JOIN `profesionales` ON diagnosticos.idProfesional = profesionales.id INNER JOIN `pacientes` ON diagnosticos.idPaciente = pacientes.id INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
             $res = $this->bd->query($sql);
             $diagnosticos = array();
 
