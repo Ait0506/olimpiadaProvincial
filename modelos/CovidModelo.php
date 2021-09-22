@@ -51,32 +51,32 @@ class CovidModelo extends PadreModelo
         $this->descripcion = $this->bd->real_escape_string($descripcion);
     }
 
-    // public function obtenerDiagnosticos() {
-    //     try {
-    //         $sql = "SELECT diagnosticos.id, diagnosticos.descripcion as 'descripcion', profesionales.nombre as 'nombreProfesional', profesionales.apellido as 'apellidoProfesional', profesionales.id as 'idProfesional', especialidades.especialidad as 'especialidad', pacientes.id as 'idPaciente', pacientes.nombre as 'nombrePaciente', pacientes.apellido as 'apellidoPaciente', pacientes.genero as 'generoPaciente', pacientes.dni as 'dniPaciente' FROM `diagnosticos` INNER JOIN `profesionales` ON diagnosticos.idProfesional = profesionales.id INNER JOIN `pacientes` ON diagnosticos.idPaciente = pacientes.id INNER JOIN `especialidades` ON profesionales.idEspecialidad = especialidades.id";
-    //         $res = $this->bd->query($sql);
-    //         $diagnosticos = array();
+    public function obtenerCovid() {
+        try {
+            $sql = "SELECT seguimientocovid.id, seguimientocovid.estadoCovid as 'estadoCovid', seguimientocovid.internacion as 'internacion', seguimientocovid.descripcion as 'descripcion', pacientes.id as 'idPaciente', pacientes.nombre as 'nombrePaciente', pacientes.apellido as 'apellidoPaciente', pacientes.genero as 'generoPaciente', pacientes.dni as 'dniPaciente' FROM `seguimientocovid` INNER JOIN `pacientes` ON seguimientocovid.idPaciente = pacientes.id";
+            $res = $this->bd->query($sql);
+            $covid = array();
 
-    //         if ($res) {
-    //             while ($diag = $res->fetch_assoc()) {
-    //                 array_push($diagnosticos, $diag);
-    //             }
-    //             $estado = array(
-    //                 'estado' => 'satisfactorio',
-    //                 'datos' => $diagnosticos
-    //             );
-    //         } else {
-    //             $estado = array(
-    //                 'estado' => 'error'
-    //             );
-    //         }
-    //     } catch (Exception $e) {
-    //         $estado = array(
-    //             'estado' => 'error'
-    //         );
-    //     }
-    //     return $estado;
-    // }
+            if ($res) {
+                while ($cov = $res->fetch_assoc()) {
+                    array_push($covid, $cov);
+                }
+                $estado = array(
+                    'estado' => 'satisfactorio',
+                    'datos' => $covid
+                );
+            } else {
+                $estado = array(
+                    'estado' => 'error'
+                );
+            }
+        } catch (Exception $e) {
+            $estado = array(
+                'estado' => 'error'
+            );
+        }
+        return $estado;
+    }
 
     public function insertarCovid()
     {

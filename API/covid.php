@@ -17,32 +17,25 @@ $estadoCovid = isset($data['estadoCovid']) != false ? filter_var($data['estadoCo
 $descripcion = isset($data['descripcion']) != false ? filter_var($data['descripcion'], FILTER_SANITIZE_STRING) : false;
 $accion = isset($data['accion']) != false ? filter_var($data['accion'], FILTER_SANITIZE_STRING) : false;
 
-// $idPaciente = 1;
-// $internacion = 0;
-// $estadoCovid = 1;
-// $descripcion = 'Bien';
-// $accion = 'eliminarCovid';
-// $id = 16;
-
 /*git 
  * CODIGO ERRORES:
  * satisfactorio: Exito.
  * error: Hubo un error.
  */
 
-// if ($accion == 'obtenerDiagnosticos') {
-//     $diagnostico = new DiagnosticosModelo();
+if ($accion == 'obtenerCovid') {
+    $covid = new CovidModelo();
 
-//     try {
-//         $respuesta = $diagnostico->obtenerDiagnosticos();
-//     } catch (Exception $e) {
-//         $respuesta = array(
-//             'estado' => 'error'
-//         );
-//     }
+    try {
+        $respuesta = $covid->obtenerCovid();
+    } catch (Exception $e) {
+        $respuesta = array(
+            'estado' => 'error'
+        );
+    }
 
-//     die(json_encode($respuesta));
-// }
+    die(json_encode($respuesta));
+}
 
 if ($accion == 'insertarCovid') {
     if ($idPaciente == false || $estadoCovid === false || $internacion === false || $descripcion == false) {
